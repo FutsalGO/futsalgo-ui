@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Menu() {
   const navItems = [
-    { name: "Home", path: "/" },
+    { name: "Home", path: "/home" },
     { name: "Field", path: "/field" },
     { name: "Booking", path: "/booking" },
     { name: "Fasilitas", path: "/fasilitas" },
