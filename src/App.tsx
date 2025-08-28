@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Register from "@/pages/auth/AuthRegister";
 import Login from "@/pages/auth/AuthLogin";
-import PublicRoute from "./pages/handlePage/PublicRoute";
+import PublicRoute from "@/pages/handlePage/PublicRoute";
 import PrivateRoute from "@/pages/handlePage/PrivateRoutet";
 import GlobalBar from "@/layout/GlobalBar";
 import RoleRoute from "@/pages/handlePage/RoleRoute";
