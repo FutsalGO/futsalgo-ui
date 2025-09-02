@@ -7,20 +7,27 @@ import PrivateRoute from "@/pages/handlePage/PrivateRoutet";
 import GlobalBar from "@/layout/GlobalBar";
 import RoleRoute from "@/pages/handlePage/RoleRoute";
 import HomeAdmin from "@/pages/admin/home/HomeAdmin";
+import { useSelector } from "react-redux";
+import type { RootState } from "./redux/GlobalStore";
+import GlobalBarAdmin from "./layout/GlobalBarAdmin";
 
 export default function App() {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route
-            path="/admin/home"
-            element={
-              <RoleRoute role="admin">
-                <HomeAdmin />
-              </RoleRoute>
-            }
-          />
+          {(user?.role === 'admin') && (
+            <Route
+              path="/*"
+              element={
+                <RoleRoute role="admin">
+                  <GlobalBarAdmin />
+                </RoleRoute>
+              }
+            />
+          )}
 
           <Route
             path="/login"
@@ -38,7 +45,8 @@ export default function App() {
               </PublicRoute>
             }
           />
-          <Route
+          {(user?.role === 'user') && (
+            <Route
             path="/*"
             element={
               <PrivateRoute>
@@ -46,6 +54,7 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          )}
         </Routes>
       </BrowserRouter>
     </>

@@ -10,6 +10,7 @@ export default function RoleRoute({
   children: React.ReactNode;
 }) {
   const { user } = useSelector((state: RootState) => state.auth);
+  console.log(user)
 
   if (!user) return <Navigate to="/login" replace />;
   if (user.role !== role) return <Navigate to="/" replace />;
