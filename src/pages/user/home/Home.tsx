@@ -29,7 +29,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-[url('/field.jpg')] bg-cover bg-center">
+      <section className="relative h-[80vh] flex items-center justify-center bg-[url('/field.WebP')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.h1
