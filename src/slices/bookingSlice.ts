@@ -25,6 +25,7 @@ export const createBooking = createAsyncThunk(
   "booking/createBooking",
   async (payload: CreateBookingPayload, { rejectWithValue }) => {
     try {
+      console.log('field_id', payload.field_id);
       const response = await axios.post("bookings/user", payload);
       return response.data;
     } catch (error: any) {

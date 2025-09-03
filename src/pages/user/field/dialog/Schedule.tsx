@@ -27,11 +27,24 @@ type Slot = {
   is_booked: boolean;
 };
 
+function formatTime(dateStr: string): string {
+  const timePart = dateStr.split("T")[1];
+  if (!timePart) return "00:00";
+
+  const [h = "00", m = "00"] = timePart.split(":");
+
+  const hours = h.padStart(2, "0");
+  const minutes = m.padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+}
+
 export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { schedules, loading } = useSelector(
     (state: RootState) => state.schedules
   );
+  console.log(`schedules${new Date().getTime()}`, schedules);
   const bookingState = useSelector((state: RootState) => state.booking);
 
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -81,8 +94,8 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
       createBooking({
         field_id: fieldId,
         booking_date: selectedDate, // ⬅️ pastikan sesuai backend
-        start_time: isoToHHMMSS(selectedTime.start_time),
-        end_time: isoToHHMMSS(selectedTime.end_time),
+        start_time: `${formatTime(selectedTime.start_time)}:00`,
+        end_time: `${formatTime(selectedTime.end_time)}:00`,
       })
     );
   };
@@ -147,10 +160,10 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                   <Button
                     key={date}
                     variant={selectedDate === date ? "default" : "outline"}
-                    className={`flex-1 min-w-[110px] rounded-xl py-3 ${
-                      selectedDate === date ? "shadow-md" : ""
-                    }`}
+                    className={`flex-1 min-w-[110px] rounded-xl py-3 ${selectedDate === date ? "shadow-md" : ""
+                      }`}
                     onClick={() => {
+                      console.log("Selected date:", date);
                       setSelectedDate(date);
                       setSelectedTime(null); // reset waktu ketika ganti hari
                     }}
@@ -171,21 +184,9 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                   Object.values(schedules[selectedDate].times).map(
                     (slot: any) => {
                       // Konversi slot dari UTC/ISO ke WIB
-                      const toWIB = (iso: string) => {
-                        const date = new Date(iso);
-                        // hitung offset UTC ke WIB (+7 jam)
-                        const utc =
-                          date.getTime() + date.getTimezoneOffset() * 60000;
-                        const wib = new Date(utc + 7 * 60 * 60 * 1000);
-                        const pad = (n: number) =>
-                          n.toString().padStart(2, "0");
-                        return `${pad(wib.getHours())}:${pad(
-                          wib.getMinutes()
-                        )}`;
-                      };
 
-                      const startWIB = toWIB(slot.start_time);
-                      const endWIB = toWIB(slot.end_time);
+                      const startWIB = formatTime(slot.start_time);
+                      const endWIB = formatTime(slot.end_time);
 
                       // Gunakan slot.start_time asli untuk logika selected
                       const isSelected =
@@ -198,12 +199,11 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                             slot.is_booked
                               ? "destructive"
                               : isSelected
-                              ? "default"
-                              : "secondary"
+                                ? "default"
+                                : "secondary"
                           }
-                          className={`min-w-[110px] rounded-full text-sm ${
-                            isSelected ? "shadow-md" : ""
-                          }`}
+                          className={`min-w-[110px] rounded-full text-sm ${isSelected ? "shadow-md" : ""
+                            }`}
                           disabled={slot.is_booked}
                           onClick={() => setSelectedTime(slot)}
                         >
