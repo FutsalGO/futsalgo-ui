@@ -1,3 +1,10 @@
+// src/pages/FieldPage.tsx
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/redux/GlobalStore";
+import { fetchFields } from "@/slices/fieldSlice";
+import { ScheduleDialog } from "@/pages/user/field/dialog/Schedule";
+
 import {
   Card,
   CardContent,
@@ -7,76 +14,62 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-interface Field {
-  id: number;
-  name: string;
-  description?: string;
-  weekday_price: number;
-  weekend_price?: number;
-  imageUrl?: string;
-  created_at: string;
-}
-
-// dummy data
-const fields: Field[] = [
-  {
-    id: 1,
-    name: "Lapangan A",
-    description: "Rumput sintetis standar FIFA",
-    weekday_price: 150000,
-    weekend_price: 200000,
-    imageUrl: "https://via.placeholder.com/300x200",
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 2,
-    name: "Lapangan B",
-    description: "Lapangan indoor full AC",
-    weekday_price: 18_0000,
-    weekend_price: 22_0000,
-    imageUrl: "https://via.placeholder.com/300x200",
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: 3,
-    name: "Lapangan C",
-    description: "Lapangan outdoor dengan tribun",
-    weekday_price: 120000,
-    weekend_price: 170000,
-    imageUrl: "https://via.placeholder.com/300x200",
-    created_at: new Date().toISOString(),
-  },
-];
-
 export default function FieldPage() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { fields, loading, error } = useSelector(
+    (state: RootState) => state.fields
+  );
+
+  useEffect(() => {
+    dispatch(fetchFields());
+  }, [dispatch]);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-2xl font-bold mb-6">Available Fields</h1>
-      <div className="flex gap-6 flex-wrap justify-center">
+    <div className="min-h-screen bg-gray-50 py-10 px-6">
+      <h1 className="text-3xl font-bold text-center mb-10 text-green-700">
+        Daftar Lapangan
+      </h1>
+
+      {loading && <p className="text-center">Loading...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {fields.map((field) => (
-          <Card key={field.id} className="w-72">
+          <Card
+            key={field.id}
+            className="overflow-hidden shadow-lg hover:shadow-xl transition rounded-2xl"
+          >
             {field.imageUrl && (
               <img
-                src={field.imageUrl}
+                src={`http://localhost:3000/uploadField/${field.imageUrl}`}
                 alt={field.name}
-                className="w-full h-40 object-cover"
+                className="w-full h-48 object-cover"
               />
             )}
+
             <CardHeader>
-              <CardTitle>{field.name}</CardTitle>
+              <CardTitle className="text-xl">{field.name}</CardTitle>
               <CardDescription>{field.description}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <p>Weekday: Rp {field.weekday_price}</p>
-              {field.weekend_price && <p>Weekend: Rp {field.weekend_price}</p>}
-            </CardContent>
-            <CardFooter>
-              <p className="text-xs text-gray-500">
-                {new Date(field.created_at).toLocaleDateString()}
+
+            <CardContent className="space-y-1">
+              <p className="text-sm">
+                <span className="font-semibold">Weekday:</span> Rp{" "}
+                {field.weekday_price.toLocaleString()}
               </p>
-              <button className="px-3 py-1 bg-blue-500 text-white rounded-lg text-sm hover:bg-blue-600">
-                Book Now
-              </button>
+              {field.weekend_price && (
+                <p className="text-sm">
+                  <span className="font-semibold">Weekend:</span> Rp{" "}
+                  {field.weekend_price.toLocaleString()}
+                </p>
+              )}
+            </CardContent>
+
+            <CardFooter className="flex justify-between items-center">
+              <p className="text-xs text-gray-500">
+                {new Date(field.created_at).toLocaleDateString("id-ID")}
+              </p>
+              <ScheduleDialog fieldId={field.id} image={field.imageUrl} />
             </CardFooter>
           </Card>
         ))}
