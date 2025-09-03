@@ -15,30 +15,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
-import { formatDate, formatTime } from "@/lib/dateFormat";
 import instance from "@/server/Axios";
-
-interface Field {
-  id: number;
-  name: string;
-  description?: string;
-  weekday_price: number;
-  weekend_price?: number;
-  imageUrl?: string;
-  created_at: string;
-}
-interface Booking { 
-  id: number; 
-  user_id: number; 
-  field_id: number; 
-  customer_name: string; 
-  customer_phone: string; 
-  start_time: string; 
-  end_time: string; 
-  booking_date: string; 
-  status: string; 
-  field: Field;
-}
+import { type Booking } from "@/types/booking";
+import BookingRow from "@/components/admin/BookingRow";
 
 export default function LapanganTable() {
   const limit = 25
@@ -47,20 +26,6 @@ export default function LapanganTable() {
   const [status, setStatus] = useState<string>("pending")
   const [bookings, setBookings] = useState<Booking[] | null>(null)
   const [reachEnd, setReachEnd] = useState<boolean>(true)
-
-  const handleStatusChange = (id: number, status: string) => {
-    instance.patch(`/bookings/admin/${id}`, { status })
-      .catch((err) => console.log(err))
-
-    setBookings((prevBookings) => {
-      if (prevBookings) {
-        return prevBookings.map((booking) =>
-          booking.id === id ? { ...booking, status } : booking
-        )
-      }
-      return null
-    })
-  }
 
   useEffect(() => {
     instance
@@ -131,30 +96,7 @@ export default function LapanganTable() {
           </TableHeader>
           <TableBody>
             {bookings?.map((booking) => (
-              <TableRow key={booking.id}>
-                <TableCell className="font-medium">{booking.field.name}</TableCell>
-                <TableCell>
-                  {`${formatDate(booking.booking_date)} \n ${formatTime(booking.start_time)}~${formatTime(booking.end_time)}`}
-                </TableCell>
-                <TableCell className="text-yellow-500 font-semibold">{booking.field.weekday_price}</TableCell>
-                <TableCell>
-                  <Select
-                    value={booking.status}
-                    onValueChange={(val) => handleStatusChange(booking.id, val)}
-                  >
-                    <SelectTrigger className="w-[150px] border-blue-600 focus:ring-green-600">
-                      <SelectValue placeholder="Pilih status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="confirmed">Confirmed</SelectItem>
-                      <SelectItem value="cancelled">Cancelled</SelectItem>
-                      <SelectItem value="rejected">Rejected</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </TableCell>
-              </TableRow>
+              <BookingRow key={booking.id} booking={booking} setBookings={setBookings} />
             ))}
           </TableBody>
         </Table>

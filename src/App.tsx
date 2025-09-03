@@ -6,7 +6,6 @@ import PublicRoute from "@/pages/handlePage/PublicRoute";
 import PrivateRoute from "@/pages/handlePage/PrivateRoutet";
 import GlobalBar from "@/layout/GlobalBar";
 import RoleRoute from "@/pages/handlePage/RoleRoute";
-import HomeAdmin from "@/pages/admin/home/HomeAdmin";
 import { useSelector } from "react-redux";
 import type { RootState } from "./redux/GlobalStore";
 import GlobalBarAdmin from "./layout/GlobalBarAdmin";
