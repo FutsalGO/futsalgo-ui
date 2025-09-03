@@ -2,8 +2,8 @@ import Menu from "@/pages/user/menu/Menu";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "@/pages/user/home/Home";
 import Field from "@/pages/user/field/Field";
-import Booking from "@/pages/user/booking/Booking";
-import Fasilitas from "@/pages/user/fasilitas/Fasilitas";
+import Booking from "@/pages/user/booking/booking";
+import Fasilitas from "@/pages/user/fasilitas/fasilitas";
 import About from "@/pages/user/aboutme/AboutMe";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/slices/authSlice";
@@ -24,7 +24,7 @@ export default function GlobalBar() {
   return (
     <div>
       {/* Top Navigation */}
-      <div className="flex items-center justify-between w-full px-6 py-3 bg-gray-300 shadow-md">
+      <div className="sticky top-0 z-50 flex items-center justify-between w-full px-6 py-3 bg-gray-300 shadow-md">
         <Menu />
         {/* Area kanan */}
         <div className="flex items-center gap-4">

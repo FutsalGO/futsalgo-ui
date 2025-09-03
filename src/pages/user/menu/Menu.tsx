@@ -6,8 +6,6 @@ export default function Menu() {
     { name: "Home", path: "/" },
     { name: "Field", path: "/field" },
     { name: "Booking", path: "/booking" },
-    { name: "Fasilitas", path: "/fasilitas" },
-    { name: "About Me", path: "/about" },
   ];
 
   return (
