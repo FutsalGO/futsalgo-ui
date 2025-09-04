@@ -15,6 +15,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import instance from "@/server/Axios";
+
+interface Schedules {
+  [key: string]: {
+    day: string | undefined;
+    times: {
+      [key: string]: {
+        field_id: number;
+        booking_date: Date;
+        start_time: Date;
+        end_time: Date;
+        is_booked: boolean;
+      };
+    };
+  };
+}
 
 interface ScheduleDialogProps {
   fieldId: number;
@@ -41,21 +57,25 @@ function formatTime(dateStr: string): string {
 
 export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const { schedules, loading } = useSelector(
+  const { loading } = useSelector(
     (state: RootState) => state.schedules
   );
-  console.log(`schedules${new Date().getTime()}`, schedules);
+
+  const [schedules, setSchedules] = useState<Schedules>({});
+
   const bookingState = useSelector((state: RootState) => state.booking);
 
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<Slot | null>(null);
 
-  // fetch saat dialog terbuka
-  useEffect(() => {
-    if (fieldId) {
-      dispatch(fetchSchedules(fieldId));
+  async function fetchData() {
+      const res = await instance.get(`schedules/${fieldId}`);
+      setSchedules(res.data.data);
     }
-  }, [fieldId, dispatch]);
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   // reset state booking saat keluar
   useEffect(() => {
@@ -67,12 +87,13 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   // auto-refresh schedules setelah booking sukses
   useEffect(() => {
     if (bookingState.success) {
-      dispatch(fetchSchedules(fieldId)); // refetch jadwal
+      fetchData();
       setSelectedTime(null); // reset pilihan jam
     }
-  }, [bookingState.success, dispatch, fieldId]);
+  }, [bookingState.success, fieldId]);
 
   const dates = Object.keys(schedules);
+  console.log('dates', dates)
 
   // 🔹 helper: konversi ISO ke format "HH:MM:SS"
   const isoToHHMMSS = (iso: string) =>
@@ -163,7 +184,6 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                     className={`flex-1 min-w-[110px] rounded-xl py-3 ${selectedDate === date ? "shadow-md" : ""
                       }`}
                     onClick={() => {
-                      console.log("Selected date:", date);
                       setSelectedDate(date);
                       setSelectedTime(null); // reset waktu ketika ganti hari
                     }}
@@ -183,7 +203,6 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                 {selectedDate &&
                   Object.values(schedules[selectedDate].times).map(
                     (slot: any) => {
-                      // Konversi slot dari UTC/ISO ke WIB
 
                       const startWIB = formatTime(slot.start_time);
                       const endWIB = formatTime(slot.end_time);
