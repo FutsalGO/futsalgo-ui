@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch } from "@/redux/GlobalStore";
-import { fetchSchedules } from "@/slices/scheduleSlice";
 import { createBooking, resetBookingState } from "@/slices/bookingSlice";
 
 import { Button } from "@/components/ui/button";
@@ -57,9 +56,7 @@ function formatTime(dateStr: string): string {
 
 export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading } = useSelector(
-    (state: RootState) => state.schedules
-  );
+  const { loading } = useSelector((state: RootState) => state.schedules);
 
   const [schedules, setSchedules] = useState<Schedules>({});
 
@@ -69,13 +66,13 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   const [selectedTime, setSelectedTime] = useState<Slot | null>(null);
 
   async function fetchData() {
-      const res = await instance.get(`schedules/${fieldId}`);
-      setSchedules(res.data.data);
-    }
+    const res = await instance.get(`schedules/${fieldId}`);
+    setSchedules(res.data.data);
+  }
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   // reset state booking saat keluar
   useEffect(() => {
@@ -93,17 +90,7 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
   }, [bookingState.success, fieldId]);
 
   const dates = Object.keys(schedules);
-  console.log('dates', dates)
-
-  // 🔹 helper: konversi ISO ke format "HH:MM:SS"
-  const isoToHHMMSS = (iso: string) =>
-    new Date(iso).toLocaleTimeString("en-GB", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-      timeZone: "Asia/Jakarta",
-    });
+  console.log("dates", dates);
 
   const handleBooking = () => {
     if (!selectedDate || !selectedTime) {
@@ -181,8 +168,9 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                   <Button
                     key={date}
                     variant={selectedDate === date ? "default" : "outline"}
-                    className={`flex-1 min-w-[110px] rounded-xl py-3 ${selectedDate === date ? "shadow-md" : ""
-                      }`}
+                    className={`flex-1 min-w-[110px] rounded-xl py-3 ${
+                      selectedDate === date ? "shadow-md" : ""
+                    }`}
                     onClick={() => {
                       setSelectedDate(date);
                       setSelectedTime(null); // reset waktu ketika ganti hari
@@ -203,7 +191,6 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                 {selectedDate &&
                   Object.values(schedules[selectedDate].times).map(
                     (slot: any) => {
-
                       const startWIB = formatTime(slot.start_time);
                       const endWIB = formatTime(slot.end_time);
 
@@ -218,11 +205,12 @@ export function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
                             slot.is_booked
                               ? "destructive"
                               : isSelected
-                                ? "default"
-                                : "secondary"
+                              ? "default"
+                              : "secondary"
                           }
-                          className={`min-w-[110px] rounded-full text-sm ${isSelected ? "shadow-md" : ""
-                            }`}
+                          className={`min-w-[110px] rounded-full text-sm ${
+                            isSelected ? "shadow-md" : ""
+                          }`}
                           disabled={slot.is_booked}
                           onClick={() => setSelectedTime(slot)}
                         >
