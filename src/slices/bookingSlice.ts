@@ -22,6 +22,15 @@ interface CreateBookingPayload {
   end_time: string;
 }
 
+interface CreateBookingAdminPayload {
+  field_id: number;
+  customer_name: string;
+  customer_phone: string;
+  booking_date: string; // format: YYYY-MM-DD
+  start_time: string;
+  end_time: string;
+}
+
 interface GetBookingFilters {
   date?: string;
   status?: string;
@@ -49,6 +58,21 @@ export const createBooking = createAsyncThunk(
   async (payload: CreateBookingPayload, { rejectWithValue }) => {
     try {
       const response = await axios.post("bookings/user", payload);
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to create booking"
+      );
+    }
+  }
+);
+
+// 🔹 Create booking admin
+export const createBookingAdmin = createAsyncThunk(
+  "booking/createBooking",
+  async (payload: CreateBookingAdminPayload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post("bookings/admin", payload);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(

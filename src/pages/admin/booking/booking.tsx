@@ -19,7 +19,7 @@ import instance from "@/server/Axios";
 import { type Booking } from "@/types/booking";
 import BookingRow from "@/components/admin/BookingRow";
 
-export default function LapanganTable() {
+export default function Booking() {
   const limit = 25
   const [page, setPage] = useState<number>(0)
   const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0])
