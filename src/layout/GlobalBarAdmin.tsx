@@ -1,5 +1,5 @@
 import Sidebar from "@/components/admin/Sidebar";
-import Booking from "@/pages/admin/booking/Booking";
+import Booking from "@/pages/admin/booking/booking";
 import CreateBooking from "@/pages/admin/create-booking/CreateBooking";
 import Field from "@/pages/admin/field/Field";
 import { Route, Routes } from "react-router-dom";
