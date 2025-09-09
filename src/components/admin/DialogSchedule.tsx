@@ -55,12 +55,13 @@ function formatTime(dateStr: string): string {
   return `${hours}:${minutes}`;
 }
 
-export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) {
+export default function ScheduleDialog({
+  fieldId,
+  image,
+}: ScheduleDialogProps) {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const { loading } = useSelector(
-    (state: RootState) => state.schedules
-  );
+  const { loading } = useSelector((state: RootState) => state.schedules);
 
   const [schedules, setSchedules] = useState<Schedules>({});
 
@@ -76,7 +77,7 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   // reset state booking saat keluar
   useEffect(() => {
@@ -103,15 +104,15 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
       }
 
       dispatch(
-            createBookingAdmin({
-        customer_name: name,
-        customer_phone: phone,
-        field_id: fieldId,
-        booking_date: selectedDate,
-        start_time: `${formatTime(selectedTime.start_time)}:00`,
-        end_time: `${formatTime(selectedTime.end_time)}:00`,
-      })
-          );
+        createBookingAdmin({
+          customer_name: name,
+          customer_phone: phone,
+          field_id: fieldId,
+          booking_date: selectedDate,
+          start_time: `${formatTime(selectedTime.start_time)}:00`,
+          end_time: `${formatTime(selectedTime.end_time)}:00`,
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -119,7 +120,11 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
 
   return (
     <>
-      <DialogCreateBooking open={open} onOpenChange={setOpen} handleBooking={handleBooking} />
+      <DialogCreateBooking
+        open={open}
+        onOpenChange={setOpen}
+        handleBooking={handleBooking}
+      />
       <Dialog>
         <DialogTrigger asChild>
           <button className="px-5 py-2 bg-green-600 text-white rounded-full text-sm hover:bg-green-700 shadow-md transition">
@@ -167,7 +172,9 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-gray-400 text-sm">Tidak ada gambar</span>
+                  <span className="text-gray-400 text-sm">
+                    Tidak ada gambar
+                  </span>
                 )}
               </div>
 
@@ -179,8 +186,9 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
                     <Button
                       key={date}
                       variant={selectedDate === date ? "default" : "outline"}
-                      className={`flex-1 min-w-[110px] rounded-xl py-3 ${selectedDate === date ? "shadow-md" : ""
-                        }`}
+                      className={`flex-1 min-w-[110px] rounded-xl py-3 ${
+                        selectedDate === date ? "shadow-md" : ""
+                      }`}
                       onClick={() => {
                         setSelectedDate(date);
                         setSelectedTime(null); // reset waktu ketika ganti hari
@@ -201,7 +209,6 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
                   {selectedDate &&
                     Object.values(schedules[selectedDate].times).map(
                       (slot: any) => {
-
                         const startWIB = formatTime(slot.start_time);
                         const endWIB = formatTime(slot.end_time);
 
@@ -216,11 +223,12 @@ export default function ScheduleDialog({ fieldId, image }: ScheduleDialogProps) 
                               slot.is_booked
                                 ? "destructive"
                                 : isSelected
-                                  ? "default"
-                                  : "secondary"
+                                ? "default"
+                                : "secondary"
                             }
-                            className={`min-w-[110px] rounded-full text-sm ${isSelected ? "shadow-md" : ""
-                              }`}
+                            className={`min-w-[110px] rounded-full text-sm ${
+                              isSelected ? "shadow-md" : ""
+                            }`}
                             disabled={slot.is_booked}
                             onClick={() => setSelectedTime(slot)}
                           >

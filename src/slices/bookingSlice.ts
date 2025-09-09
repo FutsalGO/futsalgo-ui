@@ -2,6 +2,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "@/server/Axios";
 
+interface Field {
+  id: number;
+  name: string;
+  weekday_price: number;
+  weekend_price: number;
+  // tambahkan properti lain sesuai schema prisma
+}
+
 interface Booking {
   id: number;
   field_id: number;
@@ -12,6 +20,7 @@ interface Booking {
   end_time: string;
   status: string;
   created_at: string;
+  field?: Field;
   // tambahkan field lain sesuai schema prisma
 }
 

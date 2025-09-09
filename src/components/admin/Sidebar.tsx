@@ -34,9 +34,10 @@ export default function Sidebar() {
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center gap-3 w-full justify-start rounded-xl p-3 font-semibold transition ${isActive
-                ? "bg-green-600 text-white"
-                : "text-gray-800 hover:bg-green-100"
+              `flex items-center gap-3 w-full justify-start rounded-xl p-3 font-semibold transition ${
+                isActive
+                  ? "bg-green-600 text-white"
+                  : "text-gray-800 hover:bg-green-100"
               }`
             }
           >

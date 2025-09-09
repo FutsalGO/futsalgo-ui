@@ -2,7 +2,7 @@ import Menu from "@/pages/user/menu/Menu";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Home from "@/pages/user/home/Home";
 import Field from "@/pages/user/field/Field";
-import Booking from "@/pages/user/booking/booking";
+import History from "@/pages/user/history/History";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "@/slices/authSlice";
 import type { RootState, AppDispatch } from "@/redux/GlobalStore";
@@ -62,7 +62,7 @@ export default function GlobalBar() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/field" element={<Field />} />
-          <Route path="/booking" element={<Booking />} />
+          <Route path="/history" element={<History />} />
         </Routes>
       </div>
     </div>

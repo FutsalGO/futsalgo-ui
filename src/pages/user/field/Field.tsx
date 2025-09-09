@@ -25,8 +25,8 @@ export default function FieldPage() {
   }, [dispatch]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6">
-      <h1 className="text-3xl font-bold text-center mb-10 text-green-600">
+    <div className="min-h-screen bg-[#F1F0E9] py-10 px-6">
+      <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center text-green-600">
         Daftar Lapangan
       </h1>
 

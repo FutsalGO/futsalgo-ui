@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,34 +6,34 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 interface DialogCreateBookingProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  handleBooking: (name: string, phone: string ) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  handleBooking: (name: string, phone: string) => void;
 }
 
-export default function DialogCreateBooking ({
+export default function DialogCreateBooking({
   open,
   onOpenChange,
   handleBooking,
-}: DialogCreateBookingProps){
-  const [name, setName] = React.useState("")
-  const [phone, setPhone] = React.useState("")
+}: DialogCreateBookingProps) {
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!name.trim() || !phone.trim()) return
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) return;
 
-    handleBooking(name, phone)
-    setName("")
-    setPhone("")
-    onOpenChange(false)
-  }
+    handleBooking(name, phone);
+    setName("");
+    setPhone("");
+    onOpenChange(false);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -85,5 +85,5 @@ export default function DialogCreateBooking ({
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
