@@ -1,10 +1,11 @@
 // src/pages/auth/AuthRegister.tsx
 import { Link, useNavigate } from "react-router-dom";
-import futsalLogo from "@/assets/logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import type { AppDispatch, RootState } from "@/redux/GlobalStore";
 import { registerUser } from "@/slices/authSlice";
+import { Mail, Lock, User } from "lucide-react"; // icon lucide-react
+import futsalLogo from "@/assets/futsalgoname.svg";
 
 export default function AuthRegister() {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,78 +26,124 @@ export default function AuthRegister() {
     );
 
     if (registerUser.fulfilled.match(result)) {
-      navigate("/"); // Redirect ke halaman Home setelah register sukses
+      navigate("/"); // redirect ke home kalau sukses
     }
   };
 
   return (
-    <div className="flex flex-col h-screen justify-center items-center p-4 bg-gray-100">
-      <div className="w-1/4 p-4 rounded-sm shadow-lg space-y-6 text-gray-800 bg-gray-300">
-        <div className="flex flex-col justify-center items-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#F1F0E9]">
+      <div className="w-full h-dvh bg-white rounded-2xl shadow-lg flex overflow-hidden">
+        {/* Right side - Welcome */}
+        <div className="w-1/2 bg-gradient-to-b from-green-600 to-green-400 flex flex-col justify-center items-center text-white p-10">
+          {/* Logo */}
           <img
             src={futsalLogo}
-            alt="Logo"
-            className="w-34 h-auto object-contain mb-2"
+            alt="FutsalGo Logo"
+            className="w-100 h-100 mb-6"
           />
-          <h2 className="text-3xl font-bold">Register to FutsalGo</h2>
         </div>
+        {/* Left side - Form */}
+        <div className="flex flex-col justify-center items-center w-3/5 ">
+          <div className="w-1/2 p-10 flex flex-col justify-center border rounded-sm shadow gap-3.5">
+            <h2 className="text-4xl font-bold mb-6 text-gray-800">
+              Hello, friend!
+            </h2>
 
-        <form className="space-y-4" onSubmit={handleRegister}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-800 rounded-md bg-gray-100 text-gray-800"
-            required
-          />
+            <form className="space-y-4" onSubmit={handleRegister}>
+              {/* Name */}
+              <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 gap-3.5">
+                <User className="text-green-600 w-5 h-5 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
+                  required
+                />
+              </div>
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-800 rounded-md bg-gray-100 text-gray-800"
-            required
-          />
+              {/* Email */}
+              <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm">
+                <Mail className="text-green-600 w-5 h-5 mr-2" />
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
+                  required
+                />
+              </div>
 
-          <input
-            type="tel"
-            placeholder="Phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-800 rounded-md bg-gray-100 text-gray-800"
-            pattern="[0-9]*"
-            inputMode="numeric"
-            required
-          />
+              {/* Phone */}
+              <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm">
+                <span className="text-green-600 w-5 h-5 mr-2">📞</span>
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
+                  pattern="[0-9]*"
+                  inputMode="numeric"
+                  required
+                />
+              </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-800 rounded-md bg-gray-100 text-gray-800"
-            required
-          />
+              {/* Password */}
+              <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm">
+                <Lock className="text-green-600 w-5 h-5 mr-2" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
+                  required
+                />
+              </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 bg-green-600 hover:bg-green-700 rounded-full font-semibold transition"
-            disabled={loading}
-          >
-            {loading ? "Registering..." : "Register"}
-          </button>
-        </form>
+              {/* Terms */}
+              <div className="flex justify-between text-sm text-gray-600 mt-6">
+                <input
+                  type="checkbox"
+                  className="ml-4 accent-green-600"
+                  required
+                />
+                <span>
+                  I read and agree to{" "}
+                  <Link to="#" className="text-green-600 underline">
+                    Terms & Conditions
+                  </Link>
+                </span>
+              </div>
 
-        {error && <p className="text-red-600 text-center">{error}</p>}
+              {/* Button */}
+              <button
+                type="submit"
+                className="w-full py-2 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold shadow-md hover:opacity-90 transition"
+                disabled={loading}
+              >
+                {loading ? "Registering..." : "CREATE ACCOUNT"}
+              </button>
+            </form>
 
-        <p className="text-center text-sm text-gray-800">
-          Already have an account?{" "}
-          <Link to="/login" className="text-green-600 hover:underline">
-            Login
-          </Link>
-        </p>
+            {/* Error */}
+            {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+
+            {/* Footer */}
+            <p className="text-center text-sm text-gray-600 mt-4">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-green-600 font-semibold hover:underline"
+              >
+                Sign in
+              </Link>
+            </p>
+          </div>{" "}
+        </div>
       </div>
     </div>
   );

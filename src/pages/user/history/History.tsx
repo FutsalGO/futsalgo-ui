@@ -116,9 +116,9 @@ export default function BookingList() {
             )}
 
             {/* Pagination */}
-            <div className="flex justify-between items-center p-3 text-sm text-gray-600">
+            <div className="flex justify-between items-center p-3 text-sm text-gray-800">
               <button
-                className="border px-3 py-1 rounded text-gray-500 disabled:opacity-50"
+                className="border px-3 py-1 rounded text-gray-800 disabled:opacity-50"
                 onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                 disabled={currentPage === 1}
               >
@@ -128,7 +128,7 @@ export default function BookingList() {
                 Page {currentPage} of {totalPages || 1}
               </span>
               <button
-                className="border px-3 py-1 rounded text-gray-500 disabled:opacity-50"
+                className="border px-3 py-1 rounded text-gray-800 disabled:opacity-50"
                 onClick={() =>
                   setCurrentPage((p) => Math.min(p + 1, totalPages))
                 }

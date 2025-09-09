@@ -54,12 +54,12 @@ export default function FieldPage() {
 
               <CardContent className="space-y-1">
                 <p className="text-sm">
-                  <span className="font-semibold">Weekday:</span> Rp{" "}
+                  <span className="font-semibold">Hari Kerja:</span> Rp{" "}
                   {field.weekday_price.toLocaleString()}
                 </p>
                 {field.weekend_price && (
                   <p className="text-sm">
-                    <span className="font-semibold">Weekend:</span> Rp{" "}
+                    <span className="font-semibold">Akhir Pekan:</span> Rp{" "}
                     {field.weekend_price.toLocaleString()}
                   </p>
                 )}
