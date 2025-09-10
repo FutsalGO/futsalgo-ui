@@ -46,16 +46,23 @@ export default function BookingRow({ booking, setBookings }: Props) {
         handleConfirm={handleConfirm}
         status={status}
       />
-      <TableCell className="font-medium">{booking.field.name}</TableCell>
-      <TableCell>
+      <TableCell className="font-medium p-3">{booking.field.name}</TableCell>
+      <TableCell className="p-3">
         {`${formatDate(booking.booking_date)} \n ${formatTime(
           booking.start_time
         )}~${formatTime(booking.end_time)}`}
       </TableCell>
-      <TableCell className="text-yellow-500 font-semibold">
-        {booking.field.weekday_price}
+      <TableCell className="text-green-700 font-bold p-3">
+        {booking.field?.weekday_price?.toLocaleString(
+          "id-ID",
+          {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }
+        )}
       </TableCell>
-      <TableCell>
+      <TableCell className="p-3">
         <Select
           value={booking.status}
           onValueChange={(val) => {

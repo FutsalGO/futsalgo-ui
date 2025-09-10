@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Calendar } from "lucide-react";
 
 export default function CreateBooking() {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,7 +38,7 @@ export default function CreateBooking() {
         {fields.map((field) => (
           <Card
             key={field.id}
-            className="overflow-hidden shadow-lg hover:shadow-xl transition rounded-2xl"
+            className="overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 rounded-2xl"
           >
             {field.imageUrl && (
               <img
@@ -52,23 +53,32 @@ export default function CreateBooking() {
               <CardDescription>{field.description}</CardDescription>
             </CardHeader>
 
-            <CardContent className="space-y-1">
-              <p className="text-sm">
-                <span className="font-semibold">Weekday:</span> Rp{" "}
-                {field.weekday_price.toLocaleString()}
+            <CardContent className="space-y-2">
+              <p className="text-sm text-gray-700">
+                <span className="font-semibold">Hari Kerja:</span>{" "}
+                <span className="font-bold text-green-700">
+                  Rp {field.weekday_price.toLocaleString("id-ID")}
+                </span>
               </p>
               {field.weekend_price && (
-                <p className="text-sm">
-                  <span className="font-semibold">Weekend:</span> Rp{" "}
-                  {field.weekend_price.toLocaleString()}
+                <p className="text-sm text-gray-700">
+                  <span className="font-semibold">Akhir Pekan:</span>{" "}
+                  <span className="font-bold text-green-700">
+                    Rp {field.weekend_price.toLocaleString("id-ID")}
+                  </span>
                 </p>
               )}
             </CardContent>
 
-            <CardFooter className="flex justify-between items-center">
-              <p className="text-xs text-gray-500">
-                {new Date(field.created_at).toLocaleDateString("id-ID")}
-              </p>
+            <CardFooter className="flex justify-between items-center text-xs text-gray-500">
+              <div className="flex items-center gap-1">
+                <Calendar size={14} />
+                {new Date(field.created_at).toLocaleDateString("id-ID", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
+              </div>
               <ScheduleDialog fieldId={field.id} image={field.imageUrl} />
             </CardFooter>
           </Card>

@@ -70,11 +70,29 @@ export default function FieldRow({ field, setFields }: Props) {
         onOpenChange={setOpenDelete}
         handleDelete={handleDelete}
       />
-      <TableCell className="font-medium">{field.name}</TableCell>
-      <TableCell>{field.description}</TableCell>
-      <TableCell>{field.weekday_price}</TableCell>
-      <TableCell>{field.weekend_price}</TableCell>
-      <TableCell>
+      <TableCell className="font-medium p-3">{field.name}</TableCell>
+      <TableCell className="p-3">{field.description}</TableCell>
+      <TableCell className="text-green-700 font-bold p-3">
+        {field.weekday_price?.toLocaleString(
+          "id-ID",
+          {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }
+        )}
+      </TableCell>
+      <TableCell className="text-green-700 font-bold p-3">
+        {field.weekday_price?.toLocaleString(
+          "id-ID",
+          {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }
+        )}
+      </TableCell>
+      <TableCell className="p-3">
         <div className="flex items-center gap-2">
           <SquarePen
             onClick={() => setOpenEdit(true)}

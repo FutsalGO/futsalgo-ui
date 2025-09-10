@@ -70,11 +70,11 @@ export default function DialogCreateField({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">Nama</Label>
             <Input
               id="name"
               type="text"
-              placeholder="Enter name"
+              placeholder="Masukan nama"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -83,10 +83,10 @@ export default function DialogCreateField({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">Deskripsi</Label>
             <Textarea
               id="description"
-              placeholder="Enter description"
+              placeholder="Masukan deskripsi"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -95,11 +95,11 @@ export default function DialogCreateField({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="weekday_price">Weekday Price</Label>
+            <Label htmlFor="weekday_price">Harga Hari Kerja</Label>
             <Input
               id="weekday_price"
               type="number"
-              placeholder="100"
+              placeholder="100000"
               value={weekdayPrice}
               onChange={(e) => setWeekdayPrice(e.target.value ? Number(e.target.value) : "")}
               required
@@ -108,11 +108,11 @@ export default function DialogCreateField({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="weekend_price">Weekend Price</Label>
+            <Label htmlFor="weekend_price">Harga Hari Akhir</Label>
             <Input
               id="weekend_price"
               type="number"
-              placeholder="150"
+              placeholder="120000"
               value={weekendPrice}
               onChange={(e) => setWeekendPrice(e.target.value ? Number(e.target.value) : "")}
               required
@@ -121,7 +121,7 @@ export default function DialogCreateField({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="image">Image (optional)</Label>
+            <Label htmlFor="image">Gambar (opsional)</Label>
             <Input
               id="image"
               type="file"
@@ -136,9 +136,9 @@ export default function DialogCreateField({
               variant="outline"
               onClick={() => onOpenChange(false)}
             >
-              Cancel
+              Batal
             </Button>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" className="bg-green-600 hover:bg-green-700">Tambahkan</Button>
           </DialogFooter>
         </form>
       </DialogContent>

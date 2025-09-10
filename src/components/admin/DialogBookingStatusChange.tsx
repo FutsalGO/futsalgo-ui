@@ -26,18 +26,18 @@ export const ConfirmStatusDialog: React.FC<ConfirmStatusDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Change Status</DialogTitle>
+          <DialogTitle>Perbarui Status</DialogTitle>
           <DialogDescription>
-            Are you sure you want to change the status to{" "}
+            Apakah Anda yakin ingin mengubah status menjadi{" "}
             <span className="font-semibold capitalize">{status}</span>?
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
-            Cancel
+            Batal
           </Button>
-          <Button onClick={() => handleConfirm(status)}>Confirm</Button>
+          <Button onClick={() => handleConfirm(status)} className="bg-green-600 hover:bg-green-700">Perbarui</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

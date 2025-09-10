@@ -40,7 +40,7 @@ export default function Booking() {
 
   return (
     <div className="p-6 min-h-screen max-h-screen overflow-auto">
-      <div className="bg-white rounded-2xl shadow-lg p-4">
+      <div>
         <h2 className="text-2xl font-bold mb-4 text-green-600">Daftar Booking</h2>
 
         {/* Filter Form */}
@@ -84,28 +84,38 @@ export default function Booking() {
           </div>
         </div>
 
-        {/* Tabel */}
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-gray-100">
-              <TableHead className="text-green-600">Lapangan</TableHead>
-              <TableHead className="text-green-600">Deskripsi</TableHead>
-              <TableHead className="text-green-600">Harga</TableHead>
-              <TableHead className="text-green-600">Status</TableHead>
+              
+        <div className="bg-white shadow-2xl rounded-lg overflow-hidden">
+          {/* Tabel */}
+        <Table className="w-full text-left border-collapse">
+          <TableHeader className="text-base font-bold bg-gray-300 text-gray-800">
+            <TableRow>
+              <TableHead className="p-3">Lapangan</TableHead>
+              <TableHead className="p-3">Deskripsi</TableHead>
+              <TableHead className="p-3">Harga</TableHead>
+              <TableHead className="p-3">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
+            {bookings?.length == 0 && (
+              <TableRow>
+                <TableCell colSpan={4} className="p-4 text-base text-center text-gray-500">
+                  Tidak ada data booking
+                </TableCell>
+              </TableRow>
+            )}
             {bookings?.map((booking) => (
               <BookingRow key={booking.id} booking={booking} setBookings={setBookings} />
             ))}
           </TableBody>
         </Table>
+        
 
         {/* Pagination */}
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex justify-between items-center p-2 border-t-1">
           <Button
             variant="outline"
-            className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+            className="border px-3 py-1 rounded text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50"
             onClick={() => setPage((p) => Math.max(p - 1, 0))}
             disabled={page === 0}
           >
@@ -114,12 +124,14 @@ export default function Booking() {
           <span>Page {page + 1}</span>
           <Button
             variant="outline"
-            className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+            className="border px-3 py-1 rounded text-gray-700 bg-white hover:bg-gray-100 disabled:opacity-50"
             onClick={() => setPage((p) => p + 1)}
             disabled={reachEnd}
           >
             Next
           </Button>
+        </div>
+
         </div>
       </div>
     </div>

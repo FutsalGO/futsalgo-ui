@@ -39,19 +39,19 @@ export default function DialogCreateBooking({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Create Booking</DialogTitle>
+          <DialogTitle>Tambah Booking</DialogTitle>
           <DialogDescription>
-            Fill in the customer details below.
+            Isi rincian pelanggan di bawah ini.
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Customer Name</Label>
+            <Label htmlFor="name">Nama Pelanggan</Label>
             <Input
               id="name"
               type="text"
-              placeholder="Name"
+              placeholder="Nama"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -60,7 +60,7 @@ export default function DialogCreateBooking({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phone">Customer Phone</Label>
+            <Label htmlFor="phone">Telepon Pelanggan</Label>
             <Input
               id="phone"
               type="tel"

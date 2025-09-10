@@ -9,9 +9,9 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const navItems = [
-    { name: "Field", path: "/fields" },
-    { name: "Create Booking", path: "/create-booking" },
-    { name: "Booking", path: "/booking" },
+    { name: "Lapangan", path: "/fields" },
+    { name: "Tambah Booking", path: "/create-booking" },
+    { name: "Daftar Booking", path: "/booking" },
   ];
 
   const handleLogout = async () => {
