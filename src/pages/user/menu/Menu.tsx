@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Menu() {
   const navItems = [
-    { name: "Home", path: "/" },
+    { name: "Beranda", path: "/" },
     { name: "Lapangan", path: "/field" },
     { name: "Riwayat", path: "/history" },
   ];
@@ -11,7 +11,7 @@ export default function Menu() {
   return (
     <div className="flex items-center gap-6">
       {/* Logo */}
-      <img src={futsallogoname} alt="Logo" className="w-10 object-contain" />
+      <img src={futsallogoname} alt="Logo" className="w-20 object-contain" />
 
       {/* Navigation */}
       <nav className="flex gap-6">
@@ -20,7 +20,7 @@ export default function Menu() {
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `px-3 py-2 rounded-md text-1xl font-semibold transition ${
+              `px-3 py-2 rounded-md text-xl font-semibold transition ${
                 isActive
                   ? "bg-green-600 text-white"
                   : "text-gray-800 hover:bg-green-100"
