@@ -33,7 +33,7 @@ export default function AuthRegister() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F1F0E9]">
       <div className="w-full h-dvh bg-white rounded-2xl shadow-lg flex overflow-hidden">
-        {/* Right side - Welcome */}
+        {/* Bagian Kanan - Welcome */}
         <div className="w-1/2 bg-gradient-to-b from-green-600 to-green-400 flex flex-col justify-center items-center text-white p-10">
           {/* Logo */}
           <img
@@ -42,20 +42,20 @@ export default function AuthRegister() {
             className="w-100 h-100 mb-6"
           />
         </div>
-        {/* Left side - Form */}
+        {/* Bagian Kiri - Form */}
         <div className="flex flex-col justify-center items-center w-3/5 ">
           <div className="w-1/2 p-10 flex flex-col justify-center border rounded-sm shadow gap-3.5">
             <h2 className="text-4xl font-bold mb-6 text-gray-800">
-              Hello, friend!
+              Halo, Teman!
             </h2>
 
             <form className="space-y-4" onSubmit={handleRegister}>
-              {/* Name */}
+              {/* Nama */}
               <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 gap-3.5">
                 <User className="text-green-600 w-5 h-5 mr-2" />
                 <input
                   type="text"
-                  placeholder="Name"
+                  placeholder="Nama"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
@@ -76,12 +76,12 @@ export default function AuthRegister() {
                 />
               </div>
 
-              {/* Phone */}
+              {/* Nomor Telepon */}
               <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 shadow-sm">
                 <span className="text-green-600 w-5 h-5 mr-2">📞</span>
                 <input
                   type="tel"
-                  placeholder="Phone"
+                  placeholder="Nomor Telepon"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
@@ -96,7 +96,7 @@ export default function AuthRegister() {
                 <Lock className="text-green-600 w-5 h-5 mr-2" />
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder="Kata Sandi"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
@@ -104,7 +104,7 @@ export default function AuthRegister() {
                 />
               </div>
 
-              {/* Terms */}
+              {/* Persetujuan */}
               <div className="flex justify-between text-sm text-gray-600 mt-6">
                 <input
                   type="checkbox"
@@ -112,20 +112,20 @@ export default function AuthRegister() {
                   required
                 />
                 <span>
-                  I read and agree to{" "}
+                  Saya sudah membaca dan setuju dengan{" "}
                   <Link to="#" className="text-green-600 underline">
-                    Terms & Conditions
+                    Syarat & Ketentuan
                   </Link>
                 </span>
               </div>
 
-              {/* Button */}
+              {/* Tombol */}
               <button
                 type="submit"
                 className="w-full py-2 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold shadow-md hover:opacity-90 transition"
                 disabled={loading}
               >
-                {loading ? "Registering..." : "CREATE ACCOUNT"}
+                {loading ? "Sedang mendaftar..." : "BUAT AKUN"}
               </button>
             </form>
 
@@ -134,12 +134,12 @@ export default function AuthRegister() {
 
             {/* Footer */}
             <p className="text-center text-sm text-gray-600 mt-4">
-              Already have an account?{" "}
+              Sudah punya akun?{" "}
               <Link
                 to="/login"
                 className="text-green-600 font-semibold hover:underline"
               >
-                Sign in
+                Masuk
               </Link>
             </p>
           </div>{" "}

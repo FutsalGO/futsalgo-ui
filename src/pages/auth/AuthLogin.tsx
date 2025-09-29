@@ -29,7 +29,7 @@ export default function AuthLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F1F0E9]">
       <div className="w-full h-dvh bg-white rounded-2xl shadow-lg flex overflow-hidden">
-        {/* Right side - Banner */}
+        {/* Sisi kanan - Banner */}
         <div className="w-1/2 bg-gradient-to-b from-green-600 to-green-400 flex flex-col justify-center items-center text-white p-10">
           {/* Logo */}
           <img
@@ -38,11 +38,11 @@ export default function AuthLogin() {
             className="w-100 h-100 mb-6"
           />
         </div>
-        {/* Left side - Form */}
+        {/* Sisi kiri - Form */}
         <div className="flex flex-col justify-center items-center w-3/5 ">
           <div className="w-1/2 p-10 flex flex-col justify-center border rounded-sm shadow gap-3.5">
             <h2 className="text-4xl font-bold mb-6 text-gray-800">
-              Welcome Back!
+              Selamat Datang Kembali!
             </h2>
 
             <form onSubmit={handleLogin} className="space-y-4">
@@ -64,7 +64,7 @@ export default function AuthLogin() {
                 <Lock className="text-green-600 w-5 h-5 mr-2" />
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder="Kata sandi"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="text-xl w-full bg-transparent focus:outline-none text-gray-700"
@@ -72,27 +72,27 @@ export default function AuthLogin() {
                 />
               </div>
 
-              {/* Remember + Forgot */}
+              {/* Ingat + Lupa Password */}
               <div className="flex justify-between text-sm text-gray-600 mt-6">
                 <label className="flex items-center gap-1 text-xl">
                   <input type="checkbox" className=" accent-green-600" />
-                  Remember me
+                  Ingat saya
                 </label>
                 <Link
                   to="/forgot-password"
                   className="text-xl text-green-600 hover:underline"
                 >
-                  Forgot password?
+                  Lupa kata sandi?
                 </Link>
               </div>
 
-              {/* Button */}
+              {/* Tombol */}
               <button
                 type="submit"
                 className="w-full mt-2 py-2 rounded-full bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold shadow-md hover:opacity-90 transition"
                 disabled={loading}
               >
-                {loading ? "Logging in..." : "SIGN IN"}
+                {loading ? "Sedang masuk..." : "MASUK"}
               </button>
             </form>
 
@@ -101,12 +101,12 @@ export default function AuthLogin() {
 
             {/* Footer */}
             <p className="text-xl text-center  text-gray-600 mt-4">
-              Don’t have an account?{" "}
+              Belum punya akun?{" "}
               <Link
                 to="/register"
                 className="text-green-600 font-semibold hover:underline"
               >
-                Create
+                Daftar
               </Link>
             </p>
           </div>

@@ -52,7 +52,7 @@ export default function Sidebar() {
         onClick={handleLogout}
       >
         <LogOut className="h-5 w-5" />
-        Logout
+        Keluar
       </button>
     </aside>
   );
